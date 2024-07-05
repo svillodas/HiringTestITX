@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "c6a7f09a-d40f-4777-89de-997baa3bbec3",
+		"name": "Offer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10436217",
+		"_collection_link": "https://bionixdomain.postman.co/workspace/BionixTeam~9e20fcdf-b81a-4064-9825-f9c2b8afdded/collection/10436217-c6a7f09a-d40f-4777-89de-997baa3bbec3?action=share&source=collection_link&creator=10436217"
+	},
+	"item": [
+		{
+			"name": "list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/offer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"offer",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/offer/1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"offer",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"brandId\": 123,\n    \"startDate\": \"2024-07-01 10:00:00\",\n    \"endDate\": \"2024-07-31 23:59:59\",\n    \"priceListId\": 1,\n    \"productPartnumber\": \"ABC123\",\n    \"priority\": 1,\n    \"price\": 99.99,\n    \"currencyIso\": \"USD\",\n    \"offerId\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/offer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"offer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete one",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/offer/1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"offer",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete all",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"brandId\": 123,\n    \"startDate\": \"2024-07-01 10:00:00\",\n    \"endDate\": \"2024-07-31 23:59:59\",\n    \"priceListId\": 1,\n    \"productPartnumber\": \"ABC123\",\n    \"priority\": 1,\n    \"price\": 99.99,\n    \"currencyIso\": \"USD\",\n    \"offerId\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/offer/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"offer",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
