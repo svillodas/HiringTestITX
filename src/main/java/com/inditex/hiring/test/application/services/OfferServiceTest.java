@@ -2,6 +2,7 @@ package com.inditex.hiring.test.application.services;
 
 import com.inditex.hiring.application.OfferService;
 import com.inditex.hiring.application.dto.OfferDto;
+import com.inditex.hiring.application.mappers.OfferDtoMapper;
 import com.inditex.hiring.domain.model.Offer;
 import com.inditex.hiring.domain.repository.OfferRepository;
 import org.junit.Test;
@@ -12,10 +13,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,16 @@ public class OfferServiceTest {
         assertNotNull(offerDto);
         assertEquals(1, (long) offerDto.getOfferId());
     }
+
+    @Test
+    public void getAllOffers_ReturnsEmptyList_WhenNoOffersExist() {
+        Mockito.when(offerRepository.findAll()).thenReturn(Collections.emptyList());
+        List<OfferDto> offers = offerService.getAllOffers();
+
+        assertNotNull(offers);
+        assertEquals(0, offers.size());
+    }
+
 
     @Test
     public void getOfferById_ReturnsNull_WhenOfferDoesNotExist() {
@@ -79,31 +90,36 @@ public class OfferServiceTest {
         assertEquals(Long.valueOf(1L), offers.get(0).getOfferId());
         assertEquals(Long.valueOf(2L), offers.get(1).getOfferId());
     }
-    @Test
-    public void saveOffer_SavesAndReturnsOfferDto() {
-        Offer offer1 = new Offer();
-        offer1.setOfferId(1L);
-        offer1.setStartDate(LocalDateTime.now());
-        offer1.setEndDate(LocalDateTime.now());
-        offer1.setPriceListId(10);
-        Long offerId = 1L;
-        Integer brandId = 123;
-        String startDate = "2024-07-05";
-        String endDate = "2024-12-31";
-        Long priceListId = 456L;
-        String productPartnumber = "002000265";
-        Integer priority = 1;
-        BigDecimal price = new BigDecimal("99.99");
-        String currencyIso = "USD";
-        OfferDto offerDto = new OfferDto(offerId, brandId, startDate, endDate, priceListId,
-                productPartnumber, priority, price, currencyIso);
 
-        Mockito.when(offerRepository.save(Matchers.any(Offer.class))).thenReturn(offer1);
+    @Test
+    public void saveOffer_SavesAllFieldsCorrectly() {
+        OfferDto offerDto = new OfferDto();
+        offerDto.setOfferId(1L);
+        offerDto.setBrandId(123);
+        offerDto.setStartDate("2024-07-05 00:00:00");
+        offerDto.setEndDate("2024-12-31 00:00:00");
+        offerDto.setPriceListId(456L);
+        offerDto.setProductPartnumber("002000265");
+        offerDto.setPriority(1);
+        offerDto.setPrice(new BigDecimal("99.99"));
+        offerDto.setCurrencyIso("USD");
+
+        Mockito.when(offerRepository.save(Matchers.any())).thenReturn(OfferDtoMapper.toDomain(offerDto));
+
         OfferDto savedOfferDto = offerService.saveOffer(offerDto);
 
         assertNotNull(savedOfferDto);
-        assertEquals(1L, (long) savedOfferDto.getOfferId());
+        assertEquals(1L, (long)savedOfferDto.getOfferId());
+        assertEquals(123, (long) savedOfferDto.getBrandId());
+        assertEquals("2024-07-05 00:00:00", savedOfferDto.getStartDate());
+        assertEquals("2024-12-31 00:00:00", savedOfferDto.getEndDate());
+        assertEquals(456L, savedOfferDto.getPriceListId().longValue());
+        assertEquals("002000265", savedOfferDto.getProductPartnumber());
+        assertEquals(1, (long) savedOfferDto.getPriority());
+        assertEquals(new BigDecimal("99.99"), savedOfferDto.getPrice());
+        assertEquals("USD", savedOfferDto.getCurrencyIso());
     }
+
 
     @Test
     public void deleteOffer_DeletesOffer() {

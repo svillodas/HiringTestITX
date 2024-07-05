@@ -3,6 +3,8 @@ package com.inditex.hiring.application.mappers;
 import com.inditex.hiring.application.dto.OfferDto;
 import com.inditex.hiring.domain.model.Offer;
 import com.inditex.hiring.infrastructure.adapters.mappers.OfferMapper;
+
+import static com.inditex.hiring.application.utils.DateParser.parseLocalDateTimetoString;
 import static com.inditex.hiring.application.utils.DateParser.parseStringToLocalDateTime;
 
 public class OfferDtoMapper {
@@ -30,8 +32,8 @@ public class OfferDtoMapper {
         return new OfferDto(
                 domain.getOfferId(),
                 domain.getBrandId(),
-                domain.getStartDate().toString(),
-                domain.getEndDate().toString(),
+                parseLocalDateTimetoString(domain.getStartDate()),
+                parseLocalDateTimetoString(domain.getEndDate()),
                 (long) domain.getPriceListId(),
                 OfferMapper.getProductPartnumber(domain),
                 domain.getPriority(),

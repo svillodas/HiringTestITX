@@ -1,5 +1,6 @@
 package com.inditex.hiring.application;
 
+import com.inditex.hiring.application.dto.OfferDto;
 import com.inditex.hiring.application.mappers.OfferDtoMapper;
 import com.inditex.hiring.domain.model.Offer;
 import com.inditex.hiring.domain.repository.OfferRepository;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.inditex.hiring.application.dto.OfferDto;
 
 
 @Service
